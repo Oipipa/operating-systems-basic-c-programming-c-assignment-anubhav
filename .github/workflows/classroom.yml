@@ -28,14 +28,35 @@ jobs:
       with:
         test-name: No args test
         setup-command: chmod +x checkargs.sh
-        command: ./checkargs "./assignment" "Incorrect usage. You provided 0 arguments.
+        command: ./checkargs.sh "./assignment" "Incorrect usage. You provided 0 arguments.
           The correct number of arguments is 2"
         timeout: 10
         max-score: 1
+    - name: One arg test
+      id: one-arg-test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: One arg test
+        setup-command: chmod +x checkargs.sh
+        command: ./checkargs.sh "./assignment" "Incorrect usage. You provided 1 arguments.
+          The correct number of arguments is 2"
+        timeout: 10
+        max-score: 1
+    - name: Three args test
+      id: three-args-test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Three args test
+        setup-command: chmod +x checkargs.sh
+        command: ./checkargs.sh "./assignment" "Incorrect usage. You provided 3 arguments.
+          The correct number of arguments is 2"
+        timeout: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         MATRIX-OUTPUT-TEST_RESULTS: "${{steps.matrix-output-test.outputs.result}}"
         NO-ARGS-TEST_RESULTS: "${{steps.no-args-test.outputs.result}}"
+        ONE-ARG-TEST_RESULTS: "${{steps.one-arg-test.outputs.result}}"
+        THREE-ARGS-TEST_RESULTS: "${{steps.three-args-test.outputs.result}}"
       with:
-        runners: matrix-output-test,no-args-test
+        runners: matrix-output-test,no-args-test,one-arg-test,three-args-test
