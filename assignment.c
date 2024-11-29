@@ -17,12 +17,14 @@ int is_positive_integer(const char *str) {
         return 0;
     }
 
+    // Check each character to ensure it's a digit
     for (size_t i = 0; i < strlen(str); i++) {
         if (str[i] < '0' || str[i] > '9') {
             return 0;
         }
     }
 
+    // Convert to integer and check if greater than 0
     long num = strtol(str, NULL, 10);
     if (num <= 0) {
         return 0;
@@ -32,10 +34,17 @@ int is_positive_integer(const char *str) {
 }
 
 int main(int argc, char *argv[]) {
+    // Initialize random number generator
     srand(time(NULL));
 
+    // 1. Check the number of arguments
     if (argc != 3) {
-        printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2\n", argc - 1);
+        int provided_args = argc - 1;
+        if (provided_args == 1) {
+            printf("Incorrect usage. You provided %d argument. The correct number of arguments is 2\n", provided_args);
+        } else {
+            printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2\n", provided_args);
+        }
         return 1;
     }
 
@@ -45,6 +54,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    // Convert arguments to integers
     int rows = atoi(argv[1]);
     int cols = atoi(argv[2]);
 
@@ -94,7 +104,7 @@ int main(int argc, char *argv[]) {
                 fprintf(file, " "); // Add space between numbers, but not after the last number in a row
             }
         }
-        fprintf(file, "\n"); 
+        fprintf(file, "\n"); // Newline at the end of each row
     }
 
     fclose(file);
