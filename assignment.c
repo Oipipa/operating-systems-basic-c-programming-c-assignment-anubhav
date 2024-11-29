@@ -17,14 +17,12 @@ int is_positive_integer(const char *str) {
         return 0;
     }
 
-    // Check each character to ensure it's a digit
     for (size_t i = 0; i < strlen(str); i++) {
         if (str[i] < '0' || str[i] > '9') {
             return 0;
         }
     }
 
-    // Convert to integer and check if greater than 0
     long num = strtol(str, NULL, 10);
     if (num <= 0) {
         return 0;
