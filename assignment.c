@@ -27,7 +27,7 @@ int is_positive_integer(const char *str) {
 
     // Convert to integer and check if greater than 0
     long num = strtol(str, NULL, 10);
-    if (num <= 0 || num > INT32_MAX) { // Added upper bound check
+    if (num <= 0) {
         return 0;
     }
 
@@ -41,11 +41,7 @@ int main(int argc, char *argv[]) {
     // 1. Check the number of arguments
     if (argc != 3) {
         int provided_args = argc - 1;
-        if (provided_args == 1) {
-            printf("Incorrect usage. You provided %d argument. The correct number of arguments is 2\n", provided_args);
-        } else {
-            printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2\n", provided_args);
-        }
+        printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2\n", provided_args);
         return 1;
     }
 
@@ -60,14 +56,14 @@ int main(int argc, char *argv[]) {
     int cols = atoi(argv[2]);
 
     // 3. Dynamically allocate the matrix
-    int **matrix = (int **)malloc(rows * sizeof(int *));
+    int **matrix = malloc(rows * sizeof(int *));
     if (matrix == NULL) {
         perror("Failed to allocate memory for rows");
         return 1;
     }
 
     for (int i = 0; i < rows; i++) {
-        matrix[i] = (int *)malloc(cols * sizeof(int));
+        matrix[i] = malloc(cols * sizeof(int));
         if (matrix[i] == NULL) {
             perror("Failed to allocate memory for columns");
             // Free previously allocated memory before exiting
