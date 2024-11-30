@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 
     // Check if arguments are positive integers greater than 0
     if (!is_positive_integer(argv[1]) || !is_positive_integer(argv[2])) {
-        printf("Incorrect usage. The parameters you provided are not positive integers");
+        printf("Incorrect usage. The parameters you provided are not positive integers\n");
         return 1;
     }
 
