@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
+#include <limits.h>
 
 // Function to check if a string is a positive integer
 int is_positive_integer(const char *str) {
