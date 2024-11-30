@@ -1,112 +1,82 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <fcntl.h>
 #include <string.h>
+#include <unistd.h>
 #include <time.h>
+#include <stdlib.h>
 #include <ctype.h>
 
-/**
- * Function: is_positive_integer
- * -----------------------------
- *   Checks if a given string represents a positive integer.
- *
- *   str: The string to check.
- *
- *   returns: 1 if the string is a positive integer, 0 otherwise.
- */
-int is_positive_integer(const char *str) {
-    if (str == NULL || *str == '\0') {
-        return 0;
+// Function to check if a string is a positive integer
+int is_positive_integer(char *str) {
+    if (str == NULL || *str == '\0') return 0;
+    char *p = str;
+    while (*p) {
+        if (!isdigit(*p)) return 0;
+        p++;
     }
-
-    // Check each character to ensure it's a digit
-    for (size_t i = 0; i < strlen(str); i++) {
-        if (!isdigit((unsigned char)str[i])) {
-            return 0;
-        }
-    }
-
-    // Convert to integer and check if greater than 0
-    long num = strtol(str, NULL, 10);
-    if (num <= 0) {
-        return 0;
-    }
-
+    int val = atoi(str);
+    if (val <= 0) return 0;
     return 1;
 }
 
 int main(int argc, char *argv[]) {
     // Initialize random number generator
     srand(time(NULL));
+    int minrand = 1;
+    int maxrand = 100;
 
-    // 1. Check the number of arguments
-    if (argc != 3) {
-        int provided_args = argc - 1;
-        printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2\n", provided_args);
+    // Check number of arguments
+    if (argc - 1 != 2) {
+        printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2\n", argc - 1);
         return 1;
     }
 
-    // 2. Validate that both arguments are positive integers
+    // Check if arguments are positive integers greater than 0
     if (!is_positive_integer(argv[1]) || !is_positive_integer(argv[2])) {
         printf("Incorrect usage. The parameters you provided are not positive integers\n");
         return 1;
     }
 
-    // Convert arguments to integers
+    // Get the integer values
     int rows = atoi(argv[1]);
     int cols = atoi(argv[2]);
 
-    // 3. Dynamically allocate the matrix
+    // Create dynamically allocated matrix
     int **matrix = malloc(rows * sizeof(int *));
     if (matrix == NULL) {
-        perror("Failed to allocate memory for rows");
+        fprintf(stderr, "Memory allocation failed\n");
         return 1;
     }
-
     for (int i = 0; i < rows; i++) {
         matrix[i] = malloc(cols * sizeof(int));
         if (matrix[i] == NULL) {
-            perror("Failed to allocate memory for columns");
-            // Free previously allocated memory before exiting
-            for (int j = 0; j < i; j++) {
-                free(matrix[j]);
-            }
-            free(matrix);
+            fprintf(stderr, "Memory allocation failed\n");
             return 1;
         }
-    }
-
-    // Initialize matrix with random numbers between 1 and 100
-    for (int i = 0; i < rows; i++) {
+        // Initialize each entry with a random integer between 1 and 100
         for (int j = 0; j < cols; j++) {
-            matrix[i][j] = (rand() % 100) + 1; // Generates a number between 1 and 100
+            matrix[i][j] = minrand + rand() % (maxrand - minrand + 1);
         }
     }
 
-    // 4. Write the matrix to matrix.txt
-    FILE *file = fopen("matrix.txt", "w");
-    if (file == NULL) {
-        perror("Failed to create matrix.txt");
-        // Free allocated memory before exiting
-        for (int i = 0; i < rows; i++) {
-            free(matrix[i]);
-        }
-        free(matrix);
+    // Create and write to "matrix.txt"
+    FILE *fp = fopen("matrix.txt", "w");
+    if (fp == NULL) {
+        fprintf(stderr, "Error opening file\n");
         return 1;
     }
-
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            fprintf(file, "%d", matrix[i][j]);
-            if (j < cols - 1) {
-                fprintf(file, " "); // Add space between numbers, but not after the last number in a row
+            fprintf(fp, "%d", matrix[i][j]);
+            if (j != cols - 1) {
+                fprintf(fp, " ");
             }
         }
-        fprintf(file, "\n"); // Newline at the end of each row
+        fprintf(fp, "\n");
     }
+    fclose(fp);
 
-    fclose(file);
-
-    // 5. Free allocated memory
+    // Free allocated memory
     for (int i = 0; i < rows; i++) {
         free(matrix[i]);
     }
