@@ -3,7 +3,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
-#include <limits.h>
 
 // Function to check if a string is a positive integer
 int is_positive_integer(const char *str) {
@@ -13,8 +12,8 @@ int is_positive_integer(const char *str) {
         if (!isdigit(*p)) return 0;
         p++;
     }
-    long val = strtol(str, NULL, 10);
-    if (val <= 0 || val > INT32_MAX) return 0;
+    int val = atoi(str);
+    if (val <= 0) return 0;
     return 1;
 }
 
@@ -41,12 +40,13 @@ int main(int argc, char *argv[]) {
     int rows = atoi(argv[1]);
     int cols = atoi(argv[2]);
 
-    // Create dynamically allocated matrix
+    // Allocate memory for the matrix
     int **matrix = malloc(rows * sizeof(int *));
     if (matrix == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         return 1;
     }
+
     for (int i = 0; i < rows; i++) {
         matrix[i] = malloc(cols * sizeof(int));
         if (matrix[i] == NULL) {
