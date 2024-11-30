@@ -27,13 +27,13 @@ int main(int argc, char *argv[]) {
 
     // Check number of arguments
     if (argc - 1 != 2) {
-        printf("Incorrect usage. You provided %d arguments.\nThe correct number of arguments is 2\n", argc - 1);
+        printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2", argc - 1);
         return 1;
     }
 
     // Check if arguments are positive integers greater than 0
     if (!is_positive_integer(argv[1]) || !is_positive_integer(argv[2])) {
-        printf("Incorrect usage. The parameters you provided are not positive integers\n");
+        printf("Incorrect usage. The parameters you provided are not positive integers");
         return 1;
     }
 
@@ -44,13 +44,13 @@ int main(int argc, char *argv[]) {
     // Create dynamically allocated matrix
     int **matrix = malloc(rows * sizeof(int *));
     if (matrix == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
+        fprintf(stderr, "Memory allocation failed");
         return 1;
     }
     for (int i = 0; i < rows; i++) {
         matrix[i] = malloc(cols * sizeof(int));
         if (matrix[i] == NULL) {
-            fprintf(stderr, "Memory allocation failed\n");
+            fprintf(stderr, "Memory allocation failed");
             return 1;
         }
         // Initialize each entry with a random integer between 1 and 100
@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
     // Create and write to "matrix.txt"
     FILE *fp = fopen("matrix.txt", "w");
     if (fp == NULL) {
-        fprintf(stderr, "Error opening file\n");
+        fprintf(stderr, "Error opening file");
         return 1;
     }
     for (int i = 0; i < rows; i++) {
