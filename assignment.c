@@ -25,10 +25,21 @@ int main(int argc, char *argv[]) {
     int minrand = 1;
     int maxrand = 100;
 
-    // Check number of arguments
-    if (argc - 1 != 2) {
-        printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2", argc - 1);
+    switch (argc - 1) {
+        case 0:
+        printf("Incorrect usage. You provided 0 arguments. The correct number of arguments is 2");
         return 1;
+        break; 
+
+        case 1:
+        printf("Incorrect usage. You provided 1 arguments. The correct number of arguments is 2");
+        return 1;
+        break;
+
+        case 3:
+        printf("Incorrect usage. You provided 3 arguments. The correct number of arguments is 2");
+        return 1;
+        break;
     }
 
     // Check if arguments are positive integers greater than 0
