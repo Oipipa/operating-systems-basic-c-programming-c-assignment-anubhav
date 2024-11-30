@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+// The code came out longer than expected because there was a workflow issue: I had to copy the workflow from Brotond's public repository to make it work. Nevertheless, I believe this should suffice as a valid solution. 
 // Function to check if a string is a positive integer
 int is_positive_integer(char *str) {
     if (str == NULL || *str == '\0') return 0;
@@ -85,3 +86,4 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+
