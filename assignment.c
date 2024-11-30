@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 
     // Check number of arguments
     if (argc - 1 != 2) {
-        printf("Incorrect usage. You provided %d argument%s. The correct number of arguments is 2", argc - 1, (argc - 1 == 1) ? "" : "s");
+        printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2", argc - 1);
         return 1;
     }
 
@@ -72,6 +72,7 @@ int main(int argc, char *argv[]) {
                 fprintf(fp, " ");
             }
         }
+        // Do not add extra whitespace at the end of the line
         fprintf(fp, "\n");
     }
     fclose(fp);
