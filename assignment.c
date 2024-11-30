@@ -25,27 +25,14 @@ int main(int argc, char *argv[]) {
     int minrand = 1;
     int maxrand = 100;
 
-    switch (argc - 1) {
-        case 0:
-        printf("Incorrect usage. You provided 0 arguments. The correct number of arguments is 2");
-        return 1;
-        break; 
-
-        case 1:
-        printf("Incorrect usage. You provided 1 arguments. The correct number of arguments is 2");
-        return 1;
-        break;
-
-        case 3:
-        printf("Incorrect usage. You provided 3 arguments. The correct number of arguments is 2");
-        return 1;
-        break;
+    // Check number of arguments
+    if (argc - 1 != 2) {
+        printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2", argc - 1);
     }
 
     // Check if arguments are positive integers greater than 0
     if (!is_positive_integer(argv[1]) || !is_positive_integer(argv[2])) {
         printf("Incorrect usage. The parameters you provided are not positive integers");
-        return 1;
     }
 
     // Get the integer values
