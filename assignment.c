@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 
     // Check number of arguments
     if (argc - 1 != 2) {
-        printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2\n", argc - 1);
+        printf("Incorrect usage. You provided %d arguments. The correct number of arguments is 2\r", argc - 1);
         return 1;
     }
 
